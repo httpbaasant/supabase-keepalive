@@ -2,14 +2,16 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    - cron: '0 4 * * *' # Runs daily at 9:30AM IST
+    - cron: '0 4 * * *'  # Runs every day at 9:30 AM IST
   workflow_dispatch:
 
 jobs:
-  ping:
+  ping-supabase:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Supabase Project
         run: |
-          curl -X GET "https://vobkfalflhihxfmaezo.supabase.co/rest/v1/user_wallets" \
-          -H "apikey: ${{ secrets.SUPABASE_API_KEY }}"
+          curl --request GET \
+            --url 'https://vobkfalffhihixfmaezo.supabase.co/rest/v1/user_wallets' \
+            --header "apikey: ${{ secrets.SUPABASE_API_KEY }}" \
+            --header "Authorization: Bearer ${{ secrets.SUPABASE_API_KEY }}"
